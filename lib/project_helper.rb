@@ -1,10 +1,11 @@
 require 'xcodeproj'
 
 class ProjectHelper
-  PROJECTS = Dir.glob('*.xcodeproj')
 
-  def initialize
-    @project = Xcodeproj::Project.open(PROJECTS.first)
+
+  def initialize(xcodeproj_glob)
+    projects = Dir.glob(xcodeproj_glob)
+    @project = Xcodeproj::Project.open(projects.first)
   end
 
   def reset_project_to_defaults

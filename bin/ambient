@@ -5,4 +5,5 @@ $:.push File.expand_path("../../lib", __FILE__)
 
 require 'ambient'
 file = ARGV[0] || 'Ambientfile'
-Ambient.setup_project(file)
+xcodeproj_glob = ARGV[1] || '*.xcodeproj'
+Ambient.setup_project(file, xcodeproj_glob)

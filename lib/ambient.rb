@@ -28,7 +28,7 @@ module Ambient
   end
 
   def project_helper
-    @project_helper ||= ProjectHelper.new
+    @project_helper
   end
 
   def set_parent_scheme(target: nil, child: nil, parent: nil)
@@ -70,7 +70,8 @@ module Ambient
     @development_teams[target_name] = team_name
   end
 
-  def setup_project(ambientfile)
+  def setup_project(ambientfile, xcodeproj_glob)
+    @project_helper = ProjectHelper.new xcodeproj_glob
     run_ambientfile(ambientfile)
     project_helper.print_info
     reset_project_to_defaults if @use_defaults
