@@ -22,6 +22,7 @@ module Ambient
   @parents = {}
   @capabilities = {}
   @development_teams = {}
+  @provisioning_styles = {}
 
   def configure(&block)
     instance_eval &block
@@ -70,6 +71,10 @@ module Ambient
     @development_teams[target_name] = team_name
   end
 
+  def set_provisioning_style(target_name, style)
+    @provisioning_styles[target_name] = style
+  end
+
   def setup_project(ambientfile, xcodeproj_glob)
     @project_helper = ProjectHelper.new xcodeproj_glob
     run_ambientfile(ambientfile)
@@ -84,6 +89,7 @@ module Ambient
     process_target_options
     process_capabilities
     process_development_teams
+    process_provisioning_styles
     project_helper.save_changes
   end
 
@@ -130,6 +136,11 @@ module Ambient
   def process_development_teams
     puts "applying ambient development teams"
     project_helper.process_development_teams(@development_teams)
+  end
+
+  def process_provisioning_styles
+    puts "applying ambient provisioning styles"
+    project_helper.process_provisioning_styles(@provisioning_styles)
   end
 
   def load_in_parent_scheme_values

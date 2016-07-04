@@ -96,6 +96,17 @@ class ProjectHelper
     end
   end
 
+  def process_provisioning_styles(provisioning_styles)
+    provisioning_styles.each do |target_name, style|
+      @project.targets.each do |target|
+        if target_name == target.to_s
+          helper = CapabilitiesHelper.new(@project, target)
+          helper.set_provisioning_style(style)
+        end
+      end
+    end
+  end
+
   def print_info
     puts "Targets:"
     @project.targets.each { |t| puts "- #{t.to_s}" }
