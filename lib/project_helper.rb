@@ -96,6 +96,17 @@ class ProjectHelper
     end
   end
 
+  def process_development_team_names(development_team_names)
+    development_team_names.each do |target_name, development_team_name|
+      @project.targets.each do |target|
+        if target_name == target.to_s
+          helper = CapabilitiesHelper.new(@project, target)
+          helper.set_development_team_name(development_team_name)
+        end
+      end
+    end
+  end
+
   def process_provisioning_styles(provisioning_styles)
     provisioning_styles.each do |target_name, style|
       @project.targets.each do |target|

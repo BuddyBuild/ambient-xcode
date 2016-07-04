@@ -99,6 +99,11 @@ class TargetScope
     Ambient.configure { set_development_team(target_name, team_name) }
   end
 
+  def development_team_name(team_name)
+    target_name = @name
+    Ambient.configure { set_development_team_name(target_name, team_name) }
+  end
+
   def provisioning_style(style)
     target_name = @name
     Ambient.configure { set_provisioning_style(target_name, style) }

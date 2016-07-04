@@ -22,6 +22,7 @@ module Ambient
   @parents = {}
   @capabilities = {}
   @development_teams = {}
+  @development_team_names = {}
   @provisioning_styles = {}
 
   def configure(&block)
@@ -69,6 +70,10 @@ module Ambient
 
   def set_development_team(target_name, team_name)
     @development_teams[target_name] = team_name
+  end
+
+  def set_development_team_name(target_name, team_name)
+    @development_team_name[target_name] = team_name
   end
 
   def set_provisioning_style(target_name, style)

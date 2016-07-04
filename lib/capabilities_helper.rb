@@ -43,6 +43,10 @@ class CapabilitiesHelper
     target_attributes["DevelopmentTeam"] = team
   end
 
+  def set_development_team_name(team_name)
+    target_attributes["DevelopmentTeamName"] = team_name
+  end
+
   def set_provisioning_style(style)
     target_attributes["ProvisioningStyle"] = style
   end
