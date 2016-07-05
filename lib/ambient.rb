@@ -110,12 +110,12 @@ module Ambient
     load_in_parent_scheme_values
     process_project_options
     process_scheme_options
+    process_all_target_options
     process_shared_target_options
     process_target_options
     process_capabilities
     process_development_teams
     process_provisioning_styles
-    process_all_target_options
     project_helper.save_changes
   end
 
