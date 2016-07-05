@@ -85,9 +85,14 @@ class ProjectHelper
     end
   end
 
-  def process_development_teams(development_teams)
-    development_teams.each do |target_name, development_team|
-      @project.targets.each do |target|
+  def process_development_teams(development_teams, default_development_team)
+    @project.targets.each do |target|
+      if default_development_team
+        helper = CapabilitiesHelper.new(@project, target)
+        helper.set_development_team(default_development_team)
+      end
+
+      development_teams.each do |target_name, development_team|
         if target_name == target.to_s
           helper = CapabilitiesHelper.new(@project, target)
           helper.set_development_team(development_team)
@@ -96,9 +101,15 @@ class ProjectHelper
     end
   end
 
-  def process_development_team_names(development_team_names)
-    development_team_names.each do |target_name, development_team_name|
-      @project.targets.each do |target|
+  def process_development_team_names(development_team_names, default_development_team_name)
+    @project.targets.each do |target|
+
+      if default_development_team_name
+        helper = CapabilitiesHelper.new(@project, target)
+        helper.set_development_team_name(default_development_team_name)
+      end
+
+      development_team_names.each do |target_name, development_team_name|
         if target_name == target.to_s
           helper = CapabilitiesHelper.new(@project, target)
           helper.set_development_team_name(development_team_name)
@@ -107,9 +118,13 @@ class ProjectHelper
     end
   end
 
-  def process_provisioning_styles(provisioning_styles)
-    provisioning_styles.each do |target_name, style|
-      @project.targets.each do |target|
+  def process_provisioning_styles(provisioning_styles, default_provisioning_style)
+    @project.targets.each do |target|
+      if default_provisioning_style
+          helper = CapabilitiesHelper.new(@project, target)
+          helper.set_provisioning_style(default_provisioning_style)
+      end
+      provisioning_styles.each do |target_name, style|
         if target_name == target.to_s
           helper = CapabilitiesHelper.new(@project, target)
           helper.set_provisioning_style(style)

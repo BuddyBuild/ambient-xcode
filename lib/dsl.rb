@@ -6,6 +6,18 @@ def option(name, value)
   Ambient.configure { set_option(name, value) }
 end
 
+def development_team(team_name)
+  Ambient.configure { set_development_team(nil, team_name) }
+end
+
+def development_team_name(team_name)
+  Ambient.configure { set_development_team_name(nil, team_name) }
+end
+
+def provisioning_style(style)
+  Ambient.configure { set_provisioning_style(nil, style) }
+end
+
 def enable_extra_warnings_and_static_analyser!
   warnings = %w(GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED
     GCC_WARN_MISSING_PARENTHESES

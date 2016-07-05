@@ -21,8 +21,11 @@ module Ambient
   @scheme_options = {}
   @parents = {}
   @capabilities = {}
+  @development_team = nil
   @development_teams = {}
+  @development_team_name = nil
   @development_team_names = {}
+  @provisioning_style = nil
   @provisioning_styles = {}
 
   def configure(&block)
@@ -69,15 +72,27 @@ module Ambient
   end
 
   def set_development_team(target_name, team_name)
-    @development_teams[target_name] = team_name
+    if target_name
+      @development_teams[target_name] = team_name
+    else
+      @development_team = team_name
+    end
   end
 
   def set_development_team_name(target_name, team_name)
-    @development_team_name[target_name] = team_name
+    if target_name
+      @development_team_names[target_name] = team_name
+    else
+      @development_team_name = team_name
+    end
   end
 
   def set_provisioning_style(target_name, style)
-    @provisioning_styles[target_name] = style
+    if target_name
+      @provisioning_styles[target_name] = style
+    else
+      @provisioning_style = style
+    end
   end
 
   def setup_project(ambientfile, xcodeproj_glob)
@@ -140,12 +155,13 @@ module Ambient
 
   def process_development_teams
     puts "applying ambient development teams"
-    project_helper.process_development_teams(@development_teams)
+    project_helper.process_development_teams(@development_teams, @development_team)
+    project_helper.process_development_team_names(@development_team_names, @development_team_name)
   end
 
   def process_provisioning_styles
     puts "applying ambient provisioning styles"
-    project_helper.process_provisioning_styles(@provisioning_styles)
+    project_helper.process_provisioning_styles(@provisioning_styles, @provisioning_style)
   end
 
   def load_in_parent_scheme_values
