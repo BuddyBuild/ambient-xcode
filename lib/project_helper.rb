@@ -50,6 +50,14 @@ class ProjectHelper
     end
   end
 
+  def process_all_target_options(all_target_options)
+    @project.targets.each do |target|
+      @project.build_configurations.each do |configuration|
+        target.build_configuration_list.build_settings(configuration.to_s).merge!(all_target_options)
+      end
+    end
+  end
+
   def process_target_options(target_options)
     @project.targets.each do |target|
       options = target_options[target.to_s]

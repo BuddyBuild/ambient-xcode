@@ -27,6 +27,7 @@ module Ambient
   @development_team_names = {}
   @provisioning_style = nil
   @provisioning_styles = {}
+  @all_target_options = {}
 
   def configure(&block)
     instance_eval &block
@@ -40,6 +41,10 @@ module Ambient
     target = target || :all
     @parents[target] ||= {}
     @parents[target][child] = parent
+  end
+
+  def set_all_targets_option(option, value)
+    @all_target_options[option] =  value
   end
 
   def set_option(option, value, target: nil, scheme: nil, parent: nil)
@@ -110,6 +115,7 @@ module Ambient
     process_capabilities
     process_development_teams
     process_provisioning_styles
+    process_all_target_options
     project_helper.save_changes
   end
 
@@ -131,6 +137,11 @@ module Ambient
   def process_project_options
     puts "applying ambient project settings"
     project_helper.process_project_options(@project_options)
+  end
+
+  def process_all_target_options
+    puts "applying all target options"
+    project_helper.process_all_target_options(@all_target_options)
   end
 
   def process_scheme_options
