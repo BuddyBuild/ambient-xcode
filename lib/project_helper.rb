@@ -58,6 +58,18 @@ class ProjectHelper
     end
   end
 
+  def process_all_target_option_removals(all_target_option_removals)
+    @project.targets.each do |target|
+      @project.build_configurations.each do |configuration|
+        puts target.build_configuration_list.build_settings(configuration.to_s).to_s
+        all_target_option_removals.each do |option_to_remove, value|
+          puts "option_to_remove = #{option_to_remove}"
+          target.build_configuration_list.build_settings(configuration.to_s).delete(option_to_remove)
+        end
+      end
+    end
+  end
+
   def process_target_options(target_options)
     @project.targets.each do |target|
       options = target_options[target.to_s]

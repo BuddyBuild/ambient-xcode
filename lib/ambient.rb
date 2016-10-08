@@ -28,6 +28,7 @@ module Ambient
   @provisioning_style = nil
   @provisioning_styles = {}
   @all_target_options = {}
+  @all_target_option_removals = {}
 
   def configure(&block)
     instance_eval &block
@@ -45,6 +46,10 @@ module Ambient
 
   def set_all_targets_option(option, value)
     @all_target_options[option] =  value
+  end
+
+  def set_all_targets_option_removal(option)
+    @all_target_option_removals[option] =  true
   end
 
   def set_option(option, value, target: nil, scheme: nil, parent: nil)
@@ -111,6 +116,7 @@ module Ambient
     process_project_options
     process_scheme_options
     process_all_target_options
+    process_all_target_option_removals
     process_shared_target_options
     process_target_options
     process_capabilities
@@ -142,6 +148,11 @@ module Ambient
   def process_all_target_options
     puts "applying all target options"
     project_helper.process_all_target_options(@all_target_options)
+  end
+
+  def process_all_target_option_removals
+    puts "applying all target options removals"
+    project_helper.process_all_target_option_removals(@all_target_option_removals)
   end
 
   def process_scheme_options

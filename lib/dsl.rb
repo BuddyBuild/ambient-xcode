@@ -10,6 +10,10 @@ def all_targets_option(name, value)
   Ambient.configure { set_all_targets_option(name, value) }
 end
 
+def all_targets_option_removal(name)
+  Ambient.configure { set_all_targets_option_removal(name) }
+end
+
 def development_team(team_name)
   Ambient.configure { set_development_team(nil, team_name) }
 end
