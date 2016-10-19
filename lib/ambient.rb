@@ -223,7 +223,12 @@ module Ambient
 
   def run_ambientfile(filename)
     puts "Reading settings from #{filename}"
-    ambient = File.join(Dir.pwd, filename)
+
+    if filename.start_with?('/')
+      ambient = filename
+    else
+      ambient = File.join(Dir.pwd, filename)
+    end
     raise "#{filename} not found in current directory." unless File.exists?(ambient)
     load ambient
   end
