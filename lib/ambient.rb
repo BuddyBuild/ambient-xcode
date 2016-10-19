@@ -18,6 +18,7 @@ module Ambient
   @project_options = {}
   @shared_target_options = {}
   @target_options = {}
+  @target_shell_script_build_phases = {}
   @scheme_options = {}
   @parents = {}
   @capabilities = {}
@@ -76,6 +77,15 @@ module Ambient
     end
   end
 
+  def set_target_shell_script_build_phase(target, name, script)
+    build_phase = {}
+    build_phase["name"] = name
+    build_phase["script"] = script
+    @target_shell_script_build_phases[target] = build_phase
+  end
+
+
+
   def set_capability(target_name, capability_name)
     capabilities = @capabilities[target_name] ||= []
     capabilities << capability_name
@@ -119,6 +129,7 @@ module Ambient
     process_all_target_option_removals
     process_shared_target_options
     process_target_options
+    process_target_shell_script_build_phases
     process_capabilities
     process_development_teams
     process_provisioning_styles
@@ -168,6 +179,11 @@ module Ambient
   def process_target_options
     puts "applying ambient target settings"
     project_helper.process_target_options(@target_options)
+  end
+
+  def process_target_shell_script_build_phases
+    puts "applying shell script build phases"
+    project_helper.process_target_shell_script_build_phases(@target_shell_script_build_phases)
   end
 
   def process_capabilities

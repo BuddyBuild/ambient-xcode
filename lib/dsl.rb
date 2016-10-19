@@ -128,6 +128,11 @@ class TargetScope
     target_name = @name
     Ambient.configure { set_provisioning_style(target_name, style) }
   end
+
+  def script_script_build_phase(name, script)
+    target_name = @name
+    Ambient.configure { set_target_shell_script_build_phase(target_name, name, script) }
+  end
 end
 
 class SchemeScope
