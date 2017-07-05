@@ -44,7 +44,10 @@ class ProjectHelper
       options = shared_target_options[target.to_s]
       if options
         @project.build_configurations.each do |configuration|
-          target.build_configuration_list.build_settings(configuration.to_s).merge!(options)
+          options.each do |key, value|
+            target.build_configuration_list.build_settings(configuration.to_s)[key] = value
+            target.build_configuration_list.build_settings(configuration.to_s).delete(key) if value == nil
+          end
         end
       end
     end
